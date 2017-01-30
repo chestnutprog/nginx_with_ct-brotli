@@ -29,6 +29,6 @@ RUN yum update -y && \
     ./configure --add-module=../ngx_brotli --add-module=../nginx-ct-1.3.2 --with-openssl=../openssl --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module && \
     make && \
     make install && \
-    cd ../ && \
+    cd ../
 EXPOSE 80 443
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
