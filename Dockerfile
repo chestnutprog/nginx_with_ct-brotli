@@ -1,7 +1,7 @@
 FROM centos:7
 MAINTAINER NGINX Docker Maintainers
 ENV NGINX_VERSION 1.11.9
-RUN yum update -y
+RUN yum update -y && \
     yum install unzip wget gcc make git autoconf automake libtool patch pcre-devel zlib-devel which -y
 RUN wget -O nginx-ct.zip -c https://github.com/grahamedgecombe/nginx-ct/archive/v1.3.2.zip && \
     unzip nginx-ct.zip
@@ -28,6 +28,6 @@ RUN wget -c https://nginx.org/download/nginx-1.11.9.tar.gz && \
     make && \
     make install && \
     cd ../
-    
+
 EXPOSE 80 443
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
