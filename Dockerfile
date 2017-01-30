@@ -27,7 +27,7 @@ RUN yum update -y && \
     tar zxf nginx-1.11.9.tar.gz && \
     cd nginx-1.11.9/ && \
         patch -p1 < ../sslconfig/patches/nginx__1.11.5_dynamic_tls_records.patch && \
-        ./configure --add-module=../ngx_brotli --add-module=../nginx-ct-1.3.2 --with-openssl=../openssl --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module && \
+        ./configure --add-module=../ngx_brotli --add-module=../nginx-ct-1.3.2 --with-openssl=../openssl --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module --with-stream --with-stream_ssl_preread_module --with-stream_ssl_module && \
         make && \
         make install && \
     cd ../ && \
