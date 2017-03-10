@@ -1,6 +1,6 @@
 FROM centos:7
 MAINTAINER NGINX Docker Maintainers
-ENV NGINX_VERSION 1.11.9
+ENV NGINX_VERSION 1.11.10
 RUN yum update -y && \
     yum install unzip wget gcc make git autoconf automake libtool patch pcre-devel zlib-devel which -y && \
     wget -O nginx-ct.zip -c https://github.com/grahamedgecombe/nginx-ct/archive/v1.3.2.zip && \
@@ -23,14 +23,14 @@ RUN yum update -y && \
     cd openssl && \
         patch -p1 < ../sslconfig/patches/openssl__chacha20_poly1305_draft_and_rfc_ossl102j.patch && \
     cd ../ && \
-    wget -c https://nginx.org/download/nginx-1.11.9.tar.gz && \
-    tar zxf nginx-1.11.9.tar.gz && \
-    cd nginx-1.11.9/ && \
+    wget -c https://nginx.org/download/nginx-1.11.10.tar.gz && \
+    tar zxf nginx-1.11.10.tar.gz && \
+    cd nginx-1.11.10/ && \
         patch -p1 < ../sslconfig/patches/nginx__1.11.5_dynamic_tls_records.patch && \
-        ./configure --add-module=../ngx_brotli --add-module=../nginx-ct-1.3.2 --with-openssl=../openssl --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module --with-stream --with-stream_ssl_preread_module --with-stream_ssl_module && \
+        ./configure --add-module=../ngx_brotli --add-module=../nginx-ct-1.3.2 --with-openssl=../openssl --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module --with-stream --with-stream_ssl_preread_module --with-stream_ssl_module  --with-http_sub_module && \
         make && \
         make install && \
     cd ../ && \
-    rm -rf nginx-ct.zip nginx-ct-1.3.2 libbrotli ngx_brotli openssl.tar.gz openssl nginx-1.11.9.tar.gz nginx-1.11.9
+    rm -rf nginx-ct.zip nginx-ct-1.3.2 libbrotli ngx_brotli openssl.tar.gz openssl nginx-1.11.10.tar.gz nginx-1.11.10
 EXPOSE 80 443
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
